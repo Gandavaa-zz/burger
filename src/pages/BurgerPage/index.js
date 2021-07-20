@@ -5,7 +5,17 @@ import Burger from "../../components/Burger";
 
 import BuildControls from "../../components/BuildControls";
 
+import Modal from "../../components/General/Modal";
+import OrderSummary from "../../components/OrderSummary";
+
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
+
+const INGREDIENT_NAMES = {
+    bacon: 'Гахайн мах',
+    cheese: 'Бяслаг',
+    meat: 'Үхрийн мах',
+    salad: 'Салад'
+}
 
 class BurgerPage extends Component {
     // Хадгалагдах утгыг өгнө
@@ -24,12 +34,9 @@ class BurgerPage extends Component {
     ortsNemeh = (type) => {
         /* object new copy*/
         const newIngredients = { ...this.state.Ingredients};
-
         const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
-
         /* object-n index-рүү массив аар хандаж болно*/
         newIngredients[type]++;
-
         /* Purchase is set */     
         this.setState({ totalPrice:newPrice, Ingredients: newIngredients, purchasing: true});
     }
@@ -58,8 +65,15 @@ class BurgerPage extends Component {
 
         return (
             <div>
+                <Modal>
+                    <OrderSummary 
+                        ingredients={this.state.Ingredients} 
+                        ingredientNames = {INGREDIENT_NAMES}
+                    />
+                </Modal>
                 <Burger orts= {this.state.Ingredients}/>                
-                <BuildControls 
+                <BuildControls                     
+                    ingredientNames = {INGREDIENT_NAMES}
                     disabled={!this.state.purchasing}
                     price = {this.state.totalPrice}
                     disabledIngredients={disabledIngredients} 
