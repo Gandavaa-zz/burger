@@ -2,9 +2,7 @@ import React, { Component } from "react";
 
 // Burger builder-g class turliin component hiie
 import Burger from "../../components/Burger";
-
 import BuildControls from "../../components/BuildControls";
-
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
 
@@ -27,7 +25,20 @@ class BurgerPage extends Component {
             meat: 0
         }, 
         totalPrice: 1000, 
-        purchasing: false
+        purchasing: false,
+        confirmOrder: false
+    }
+
+    showConfirmModal = () => {
+        this.setState({ confirmOrder: true});
+    }
+    
+    closeConfirmModal = () => {
+        this.setState({ confirmOrder: false});
+    }
+
+    continueOrder = () => {
+        console.log('continue pressed!!');
     }
 
     /* dotood state uusgehed shine objectoor uusgedeg */
@@ -65,14 +76,20 @@ class BurgerPage extends Component {
 
         return (
             <div>
-                <Modal>
+                <Modal 
+                    closeConfirmModal ={this.closeConfirmModal}
+                    show={this.state.confirmOrder}>
                     <OrderSummary 
+                        onCancel={this.closeConfirmModal}
+                        onContinue={this.continueOrder}
+                        price = {this.state.totalPrice}
                         ingredients={this.state.Ingredients} 
                         ingredientNames = {INGREDIENT_NAMES}
                     />
                 </Modal>
                 <Burger orts= {this.state.Ingredients}/>                
-                <BuildControls                     
+                <BuildControls         
+                    showConfirmModal = {this.showConfirmModal}
                     ingredientNames = {INGREDIENT_NAMES}
                     disabled={!this.state.purchasing}
                     price = {this.state.totalPrice}

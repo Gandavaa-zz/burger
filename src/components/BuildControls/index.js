@@ -5,8 +5,7 @@ import BuildControl from '../BuildControl';
 import css from './style.module.css';
 
 const BuildControls = props => {
-
-   
+ 
 
     return (        
             <div className={css.BuildControls}>
@@ -22,7 +21,11 @@ const BuildControls = props => {
                         orts={props.ingredientNames[el]}/>
                 ))}        
 
-                <button disabled={props.disabled} className={css.OrderButton}>
+                <button 
+                    disabled={props.disabled} 
+                    className={css.OrderButton} 
+                    onClick={props.showConfirmModal}
+                >
                     ЗАХИАЛАХ
                 </button>
             </div>
