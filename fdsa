@@ -1,0 +1,29 @@
+[33mcommit 9bc7f9f1973af68b96de089090448f9c08ba487f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Wed Jul 21 20:24:35 2021 +0800
+
+    fixed content and add logo
+
+[33mcommit c9c134d7a32a12217bc8979791cc9661c76a97b7[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 15:03:15 2021 +0800
+
+    add modal window
+
+[33mcommit ff2fd37c09c0519340b12ce4df6a1cf223e08496[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 12:21:27 2021 +0800
+
+    build controllers
+
+[33mcommit fb59353d9d4b5034affc89d1fb8dc3173f94c0ad[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 12:20:48 2021 +0800
+
+    #40 order add and koding additional fixing
+
+[33mcommit 8de397b09537cb169f96fabc2e37263d7ceb2cec[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Wed Jun 30 14:49:07 2021 +0800
+
+    Initialize project using Create React App

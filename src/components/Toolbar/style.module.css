@@ -18,3 +18,9 @@
 .Content {
     color: green
 }
+
+@media (max-width: 500px) {
+    .HideOnMobile {
+        display: none;
+    }
+}
