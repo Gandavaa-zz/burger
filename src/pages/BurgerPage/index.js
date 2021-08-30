@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 // Burger builder-g class turliin component hiie
@@ -5,6 +6,9 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
+import axios from "../../axios-orders";
+
+// import { promises } from "fs";
 
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
 
@@ -26,7 +30,27 @@ class BurgerPage extends Component {
         }, 
         totalPrice: 1000, 
         purchasing: false,
-        confirmOrder: false
+        confirmOrder: false, 
+        lastCustomerName: "N/A"
+    }
+
+    // component tatagdsanii daraa
+    componentDidMount = () => {
+        axios.get('/orders.json').then( response => {
+            // object to massive
+            let arr = Object.entries(response.data);
+            arr = arr.reverse();
+            arr.forEach(el=>{
+                console.log(el[1].hayag.name + '='+ el[1].dun);
+            })
+
+            const LastOrder = arr[arr.length -1 ][1];
+            // console.log(LastOrder);
+            this.setState({ 
+                lastCustomerName: LastOrder.hayag.name,
+                Ingredients: LastOrder.orts, 
+                totalPrice: LastOrder.dun})
+        })
     }
 
     showConfirmModal = () => {
@@ -38,6 +62,21 @@ class BurgerPage extends Component {
     }
 
     continueOrder = () => {
+        // Захиалга энэ хэсэгт орж ирнэ.
+        const order = {
+            orts: this.state.Ingredients,
+            dun: this.state.totalPrice, 
+            hayag: {
+                name: 'Амараа', 
+                city: 'Ub',
+                street: 'ХУД-4р хороо 4тоот'
+            }
+        }           
+        /*eslint no-unused-vars: "error"*/     
+        axios.post('/orders.json', order).then(function() {
+            alert("Saved Successfully");
+        });
+
         console.log('continue pressed!!');
     }
 
@@ -67,6 +106,8 @@ class BurgerPage extends Component {
     }
 
     // minimium called render()
+    // after render we call componentDidMount
+
     render(){
         const disabledIngredients = {...this.state.Ingredients};
 
@@ -87,6 +128,10 @@ class BurgerPage extends Component {
                         ingredientNames = {INGREDIENT_NAMES}
                     />
                 </Modal>
+                <p style={{ width:'100%', tesxtAlign: "center", fontSize: "28px"}}>
+                    Сүүлчийн захиалагч: {this.state.lastCustomerName}
+                </p>
+
                 <Burger orts= {this.state.Ingredients}/>                
                 <BuildControls         
                     showConfirmModal = {this.showConfirmModal}
