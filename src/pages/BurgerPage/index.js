@@ -7,6 +7,7 @@ import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
 import axios from "../../axios-orders";
+import Spinner from "../../components/General/Spinner";
 
 // import { promises } from "fs";
 
@@ -31,11 +32,14 @@ class BurgerPage extends Component {
         totalPrice: 1000, 
         purchasing: false,
         confirmOrder: false, 
-        lastCustomerName: "N/A"
+        lastCustomerName: "N/A",
+        loading: false
     }
 
     // component tatagdsanii daraa
     componentDidMount = () => {
+        this.setState({ loading: true});
+
         axios.get('/orders.json').then( response => {
             // object to massive
             let arr = Object.entries(response.data);
@@ -49,8 +53,11 @@ class BurgerPage extends Component {
             this.setState({ 
                 lastCustomerName: LastOrder.hayag.name,
                 Ingredients: LastOrder.orts, 
-                totalPrice: LastOrder.dun})
-        })
+                totalPrice: LastOrder.dun
+            })          
+        }).catch(err => console.log(err))
+        .finally(() => { this.setState({ loading: false})});
+
     }
 
     showConfirmModal = () => {
@@ -73,8 +80,10 @@ class BurgerPage extends Component {
             }
         }           
         /*eslint no-unused-vars: "error"*/     
-        axios.post('/orders.json', order).then(function() {
-            alert("Saved Successfully");
+        this.setState({loading : true});
+
+        axios.post('/orders.json', order).finally(()=> {
+            this.setState({loading: false})
         });
 
         console.log('continue pressed!!');
@@ -120,14 +129,20 @@ class BurgerPage extends Component {
                 <Modal 
                     closeConfirmModal ={this.closeConfirmModal}
                     show={this.state.confirmOrder}>
+
+                    {this.state.loading ? <Spinner/> : (
                     <OrderSummary 
                         onCancel={this.closeConfirmModal}
                         onContinue={this.continueOrder}
                         price = {this.state.totalPrice}
                         ingredients={this.state.Ingredients} 
                         ingredientNames = {INGREDIENT_NAMES}
-                    />
+                    />)}
+
                 </Modal>
+
+                {this.state.loading && <Spinner/>}
+                
                 <p style={{ width:'100%', tesxtAlign: "center", fontSize: "28px"}}>
                     Сүүлчийн захиалагч: {this.state.lastCustomerName}
                 </p>
