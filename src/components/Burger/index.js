@@ -1,7 +1,6 @@
 import React from "react";
-
 import BurgerIgredient from "../BurgerIngredient";
-
+import { withRouter } from "react-router";  
 import css from "./style.module.css";
 
 const Burger = props => {
@@ -22,12 +21,11 @@ const Burger = props => {
         
     return (
     <div className ={css.Burger}>
-        <BurgerIgredient type="bread-top"/>
-        {content}       
+        <BurgerIgredient type="bread-top"/>{content}       
         <BurgerIgredient type="bread-bottom"/>
 
     </div>
     );
 };
 
-export default Burger;
+export default withRouter(Burger);

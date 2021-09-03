@@ -9,6 +9,8 @@ import OrderSummary from "../../components/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/General/Spinner";
 
+
+
 // import { promises } from "fs";
 
 const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
@@ -31,33 +33,13 @@ class BurgerPage extends Component {
         }, 
         totalPrice: 1000, 
         purchasing: false,
-        confirmOrder: false, 
-        lastCustomerName: "N/A",
-        loading: false
+        confirmOrder: false
+       
     }
 
     // component tatagdsanii daraa
     componentDidMount = () => {
-        this.setState({ loading: true});
-
-        axios.get('/orders.json').then( response => {
-            // object to massive
-            let arr = Object.entries(response.data);
-            arr = arr.reverse();
-            arr.forEach(el=>{
-                console.log(el[1].hayag.name + '='+ el[1].dun);
-            })
-
-            const LastOrder = arr[arr.length -1 ][1];
-            // console.log(LastOrder);
-            this.setState({ 
-                lastCustomerName: LastOrder.hayag.name,
-                Ingredients: LastOrder.orts, 
-                totalPrice: LastOrder.dun
-            })          
-        }).catch(err => console.log(err))
-        .finally(() => { this.setState({ loading: false})});
-
+        
     }
 
     showConfirmModal = () => {
@@ -70,23 +52,32 @@ class BurgerPage extends Component {
 
     continueOrder = () => {
         // Захиалга энэ хэсэгт орж ирнэ.
-        const order = {
-            orts: this.state.Ingredients,
-            dun: this.state.totalPrice, 
-            hayag: {
-                name: 'Амараа', 
-                city: 'Ub',
-                street: 'ХУД-4р хороо 4тоот'
-            }
-        }           
-        /*eslint no-unused-vars: "error"*/     
-        this.setState({loading : true});
+        // const order = {
+        //     orts: this.state.Ingredients,
+        //     dun: this.state.totalPrice, 
+        //     hayag: {
+        //         name: 'Амараа', 
+        //         city: 'Ub',
+        //         street: 'ХУД-4р хороо 4тоот'
+        //     }
+        // }           
+        // /*eslint no-unused-vars: "error"*/     
+        // this.setState({loading : true});
+        // axios.post('/orders.json', order).finally(()=> {
+        //     this.setState({loading: false})
+        // });
+        
+        const params = [];
 
-        axios.post('/orders.json', order).finally(()=> {
-            this.setState({loading: false})
-        });
-
-        console.log('continue pressed!!');
+        for (let orts in this.state.Ingredients){            
+            params.push(orts + '=' + this.state.Ingredients[orts]);
+        }
+        const query = params.join("&");
+        this.props.history.push({
+            pathname: '/ship', 
+            search: query
+        });        
+        this.closeConfirmModal();        
     }
 
     /* dotood state uusgehed shine objectoor uusgedeg */
@@ -118,6 +109,7 @@ class BurgerPage extends Component {
     // after render we call componentDidMount
 
     render(){
+        console.log(this.props);
         const disabledIngredients = {...this.state.Ingredients};
 
         for(let key in disabledIngredients){
@@ -138,15 +130,7 @@ class BurgerPage extends Component {
                         ingredients={this.state.Ingredients} 
                         ingredientNames = {INGREDIENT_NAMES}
                     />)}
-
                 </Modal>
-
-                {this.state.loading && <Spinner/>}
-                
-                <p style={{ width:'100%', tesxtAlign: "center", fontSize: "28px"}}>
-                    Сүүлчийн захиалагч: {this.state.lastCustomerName}
-                </p>
-
                 <Burger orts= {this.state.Ingredients}/>                
                 <BuildControls         
                     showConfirmModal = {this.showConfirmModal}
