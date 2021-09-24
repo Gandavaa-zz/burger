@@ -6,7 +6,6 @@ import css from './style.module.css';
 
 const BuildControls = props => {
  
-
     return (        
             <div className={css.BuildControls}>
                 <p>Бүргер үнэ: <strong> {props.price} </strong></p>
@@ -25,9 +24,7 @@ const BuildControls = props => {
                     disabled={props.disabled} 
                     className={css.OrderButton} 
                     onClick={props.showConfirmModal}
-                >
-                    ЗАХИАЛАХ
-                </button>
+                >ЗАХИАЛАХ</button>
             </div>
     )
 }

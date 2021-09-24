@@ -13,7 +13,8 @@ import { ShippingPage } from '../ShippingPage';
 class App extends Component {
 
   state = {
-    showSideBar: false
+    showSideBar: false, 
+    favorite: 'N/A'
   };
 
   toggleSideBar = () => {
@@ -24,17 +25,27 @@ class App extends Component {
     });
   }
 
+  choose = (orts) => {
+    this.setState({fovorite: orts})
+  }
+
   render (){
     return (<div>
       <Toolbar toggleSideBar = {this.toggleSideBar}/>
       <SideBar 
         showSidebar ={this.state.showSideBar} 
-        toggleSideBar = {this.toggleSideBar}/>
+        toggleSideBar = {this.toggleSideBar}
+      />
+
       <main className={css.Content}>
+        <p>Сонгосон орц : {this.state.fovorite} </p>
         <Switch>
           <Route path="/orders" component={OrderPage}/>
           <Route path="/ship" component={ShippingPage}/>
-          <Route path="/" component={BurgerPage}/>
+          <Route path="/"             
+            render ={() => (<BurgerPage choose={this.choose} />)}
+          />
+
         </Switch>
       </main>      
       <div>

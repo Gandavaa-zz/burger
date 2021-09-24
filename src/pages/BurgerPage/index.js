@@ -51,31 +51,19 @@ class BurgerPage extends Component {
     }
 
     continueOrder = () => {
-        // Захиалга энэ хэсэгт орж ирнэ.
-        // const order = {
-        //     orts: this.state.Ingredients,
-        //     dun: this.state.totalPrice, 
-        //     hayag: {
-        //         name: 'Амараа', 
-        //         city: 'Ub',
-        //         street: 'ХУД-4р хороо 4тоот'
-        //     }
-        // }           
-        // /*eslint no-unused-vars: "error"*/     
-        // this.setState({loading : true});
-        // axios.post('/orders.json', order).finally(()=> {
-        //     this.setState({loading: false})
-        // });
+       
         
         const params = [];
 
         for (let orts in this.state.Ingredients){            
             params.push(orts + '=' + this.state.Ingredients[orts]);
         }
-        const query = params.join("&");
+
+        params.push('dun='+this.state.totalPrice);
+
         this.props.history.push({
             pathname: '/ship', 
-            search: query
+            search: params.join("&")
         });        
         this.closeConfirmModal();        
     }
@@ -109,7 +97,7 @@ class BurgerPage extends Component {
     // after render we call componentDidMount
 
     render(){
-        console.log(this.props);
+        // console.log(this.props);
         const disabledIngredients = {...this.state.Ingredients};
 
         for(let key in disabledIngredients){
@@ -131,7 +119,8 @@ class BurgerPage extends Component {
                         ingredientNames = {INGREDIENT_NAMES}
                     />)}
                 </Modal>
-                <Burger orts= {this.state.Ingredients}/>                
+                <Burger choose={this.props.choose}
+                    orts= {this.state.Ingredients}/>                
                 <BuildControls         
                     showConfirmModal = {this.showConfirmModal}
                     ingredientNames = {INGREDIENT_NAMES}
