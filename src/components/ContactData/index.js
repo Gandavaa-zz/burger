@@ -1,8 +1,11 @@
-import axios from '../../axios-orders';
 import React from 'react';
+import { connect } from 'react-redux';
+import axios from '../../axios-orders';
 import Button from '../General/Button';
 import Spinner from '../General/Spinner';
 import { withRouter } from 'react-router-dom';
+
+
 
 import css from './style.module.css';
 
@@ -52,8 +55,6 @@ class ContactData extends React.Component{
         })
     }
 
-
-
     render() {
         return <div className={css.ContactData}>
             {this.state.loading ? <Spinner /> : (
@@ -75,4 +76,11 @@ class ContactData extends React.Component{
     }
 }
 
-export default withRouter(ContactData);
+const mapStateToProps = state => {
+    return { 
+        price: state.totalPrice,
+        ingredients: state.ingredients
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(ContactData));
