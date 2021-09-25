@@ -25,9 +25,6 @@ class App extends Component {
     });
   }
 
-  choose = (orts) => {
-    this.setState({fovorite: orts})
-  }
 
   render (){
     return (<div>
@@ -42,9 +39,7 @@ class App extends Component {
         <Switch>
           <Route path="/orders" component={OrderPage}/>
           <Route path="/ship" component={ShippingPage}/>
-          <Route path="/"             
-            render ={() => (<BurgerPage choose={this.choose} />)}
-          />
+          <Route path="/"  component = {BurgerPage}/>
 
         </Switch>
       </main>      

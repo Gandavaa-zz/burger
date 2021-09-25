@@ -12,8 +12,7 @@ const Burger = props => {
     // eslint-disable-next-line array-callback-return
     items.map((el, index) => {        
         for( let i =0; i<el[1]; i++)
-        content.push(< BurgerIgredient 
-            choose = {props.choose}
+        content.push(< BurgerIgredient             
             key={`${el[0]}${i+1}`} 
             type={el[0]} />);
     });

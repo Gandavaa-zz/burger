@@ -1,109 +1,52 @@
 
 import React, { Component } from "react";
+import { connect } from "react-redux"
 
 // Burger builder-g class turliin component hiie
 import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
-import axios from "../../axios-orders";
 import Spinner from "../../components/General/Spinner";
+import * as actions from "../../redux/actions/burgerActions";
 
-
-
-// import { promises } from "fs";
-
-const INGREDIENT_PRICES = { salad: 150, cheese: 250, bacon: 800, meat: 1500 };
-
-const INGREDIENT_NAMES = {
-    bacon: 'Гахайн мах',
-    cheese: 'Бяслаг',
-    meat: 'Үхрийн мах',
-    salad: 'Салад'
-}
 
 class BurgerPage extends Component {
     // Хадгалагдах утгыг өгнө
     state = {
-        Ingredients: {
-            salad: 0,
-            cheese: 0,
-            bacon: 0, 
-            meat: 0
-        }, 
-        totalPrice: 1000, 
-        purchasing: false,
-        confirmOrder: false
-       
+       confirmOrder: false       
     }
-
-    // component tatagdsanii daraa
-    componentDidMount = () => {
-        
-    }
-
+    
     showConfirmModal = () => {
-        this.setState({ confirmOrder: true});
+       this.setState({ confirmOrder: true});
     }
     
     closeConfirmModal = () => {
-        this.setState({ confirmOrder: false});
+       this.setState({ confirmOrder: false});
     }
 
-    continueOrder = () => {
-       
-        
-        const params = [];
-
-        for (let orts in this.state.Ingredients){            
-            params.push(orts + '=' + this.state.Ingredients[orts]);
-        }
-
-        params.push('dun='+this.state.totalPrice);
-
-        this.props.history.push({
-            pathname: '/ship', 
-            search: params.join("&")
-        });        
-        this.closeConfirmModal();        
+    continueOrder = () => {       
+       const params = [];
+       for (let orts in this.props.burgeriinOrts){            
+           params.push(orts + '=' + this.props.burgeriinOrts[orts]);
+       }
+       params.push('dun='+this.props.niitUne);
+       this.props.history.push({
+           pathname: '/ship', 
+           search: params.join("&")
+       });        
+       this.closeConfirmModal();        
     }
-
-    /* dotood state uusgehed shine objectoor uusgedeg */
-    ortsNemeh = (type) => {
-        /* object new copy*/
-        const newIngredients = { ...this.state.Ingredients};
-        const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
-        /* object-n index-рүү массив аар хандаж болно*/
-        newIngredients[type]++;
-        /* Purchase is set */     
-        this.setState({ totalPrice:newPrice, Ingredients: newIngredients, purchasing: true});
-    }
-
-    ortsHasah = (type) => {
-        if (this.state.Ingredients[type] > 0){
-            const newIngredients = { ...this.state.Ingredients};
-            newIngredients[type]--;
-            const newPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
-
-            this.setState({
-                totalPrice:newPrice, 
-                Ingredients: newIngredients, 
-                purchasing:newPrice > 1000
-            });
-        }       
-    }
-
-    // minimium called render()
+   
     // after render we call componentDidMount
-
     render(){
         // console.log(this.props);
-        const disabledIngredients = {...this.state.Ingredients};
+        const disabledIngredients = {...this.props.burgeriinOrts};
 
         for(let key in disabledIngredients){
             disabledIngredients[key] = disabledIngredients[key] <= 0            
         }
-
+        // console.log("hey", this.props);
         return (
             <div>
                 <Modal 
@@ -114,24 +57,41 @@ class BurgerPage extends Component {
                     <OrderSummary 
                         onCancel={this.closeConfirmModal}
                         onContinue={this.continueOrder}
-                        price = {this.state.totalPrice}
-                        ingredients={this.state.Ingredients} 
-                        ingredientNames = {INGREDIENT_NAMES}
+                        price = {this.props.niitUne}
+                        ingredients={this.props.burgeriinOrts} 
+                        ingredientNames = {this.props.ingredientNames}
                     />)}
                 </Modal>
-                <Burger choose={this.props.choose}
-                    orts= {this.state.Ingredients}/>                
+                <Burger orts= {this.props.burgeriinOrts}/>                
                 <BuildControls         
                     showConfirmModal = {this.showConfirmModal}
-                    ingredientNames = {INGREDIENT_NAMES}
-                    disabled={!this.state.purchasing}
-                    price = {this.state.totalPrice}
+                    ingredientNames = {this.props.ingredientNames}
+                    disabled={!this.props.purchasing}
+                    price = {this.props.niitUne}
                     disabledIngredients={disabledIngredients} 
-                    ortsNemeh={this.ortsNemeh}
-                    ortsHasah={this.ortsHasah}/>
+                    ortsNemeh={this.props.addRecipeBurger}
+                    ortsHasah={this.props.subRecipeBurger}/>
             </div>
         )
     }
 }
 
-export default BurgerPage;
+// two parameter can send to this
+// convert State to Props
+const mapStateToProps = state => {
+    return {
+        burgeriinOrts: state.ingredients,
+        niitUne: state.totalPrice, 
+        purchasing: state.purchasing, 
+        ingredientNames: state.ingredientNames
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addRecipeBurger:  ortsNer => dispatch(actions.addIngredient(ortsNer)),
+        subRecipeBurger:  ortsNer => dispatch(actions.removeIngredient(ortsNer))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BurgerPage);
