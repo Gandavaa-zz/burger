@@ -35,7 +35,7 @@ class ShippingPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        price: state.totalPrice              
+        price: state.burgerReducer.totalPrice              
     };
 };
 
