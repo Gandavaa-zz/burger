@@ -39,3 +39,44 @@ export const loadOrdersError = (error) => {
         error 
     }
 }
+
+// Захиалгыг хадгалах
+export const saveOrder = (newOrder) => {
+    // if called here connect redux thunk
+
+    return function (dispatch) {
+        //calld dipatch run Spinner 
+        dispatch(saveOrderStart());
+        
+        // Save to Firebase
+        axios.post('/orders.json', newOrder)        
+        .then(response=>{
+            dispatch(saveOrderSuccess())
+        })
+        .catch(error=> {
+            dispatch(saveOrderError(error))
+        })
+        // .finally(()=> {
+        //     this.setState({loading: false});
+        //     this.props.history.replace('/orders')
+        // });
+    }
+}
+
+export const saveOrderStart = () => {
+    return {
+        type: "SAVE_ORDER_START"
+    }
+}
+
+export const saveOrderSuccess = () => {
+    return {
+        type: "SAVE_ORDER_SUCCESS"
+    }
+}
+
+export const saveOrderError = () => {
+    return {
+        type: "SAVE_ORDER_ERROR"
+    }
+}

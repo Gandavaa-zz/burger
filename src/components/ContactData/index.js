@@ -5,6 +5,8 @@ import Button from '../General/Button';
 import Spinner from '../General/Spinner';
 import { withRouter } from 'react-router-dom';
 
+import * as actions from "../../redux/actions/orderActions"
+
 
 
 import css from './style.module.css';
@@ -20,7 +22,7 @@ class ContactData extends React.Component{
     };
 
     saveOrder =() =>{         
-        const order = {
+        const newOrder = {
             orts: this.props.ingredients,
             dun: this.props.price, 
             hayag: {
@@ -28,18 +30,10 @@ class ContactData extends React.Component{
                 city: this.state.city,
                 street: this.state.street
             }
-        }           
-        /*eslint no-unused-vars: "error"*/     
-        this.setState({loading : true});
-        axios.post('/orders.json', order)        
-        .then(()=>console.log('error'))
-        .catch(error=> {
-            console.log('order amjiltgui'+error);
-        })
-        .finally(()=> {
-            this.setState({loading: false});
-            this.props.history.replace('/orders')
-        });
+        }
+        
+        this.props.saveOrderAction(newOrder)        
+        
     }
 
     changeName =(e) =>{
@@ -83,4 +77,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(withRouter(ContactData));
+const mapDispatchToProps = dispatch => {
+    return {
+        saveOrderAction: (newOrder) => dispatch(actions.saveOrder(newOrder))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContactData));
