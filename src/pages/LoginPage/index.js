@@ -25,7 +25,7 @@ class Login extends Component {
         <div className ={css.Login}>
             <input onChange={this.changeEmail} type="text" placeholder ="Имэйл хаяг"/>
             <input onChange={this.changePassword}  type="password" placeholder ="Нууц үг"/>
-            <Button text="Логин" btnType="Success" daragdsan = {this.login} />
+            <Button text="НЭВТРЭХ" btnType="Success" daragdsan = {this.login} />
         </div>
         );
     }
