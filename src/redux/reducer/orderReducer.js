@@ -1,27 +1,30 @@
 const initialState = {    
-    orders: [
-         [ "-MkbItobuO7o3xzQhsZm", 
-             {
-                 "dun":2700,
-                 "hayag":{
-                     city:"Ulaanbaatar",
-                     name:"Saraa",
-                     street:"HUD 4-р хороолол" 
-                    },
-                 "orts":{"bacon":1,"cheese":1,"meat":1,"salad":1}            
-             }
-        ]
-    ],
-    loading: false    
+    orders: [],
+    loading: false, 
+    error: null
 }
 
+// reducer catches the action has been dispatched
 const reducer = (state = initialState, action) => {
-    if (action.type === 'LOAD_ACTIONS'){
+    if (action.type === 'LOAD_ORDERS_ACTIONS'){
         return {
             ...state, 
             loading: true
         }
+    } else if (action.type ==='LOAD_ORDERS_SUCCESS'){
+        return {
+            ...state, 
+            loading: false,
+            orders: action.orders
+        }
+     } else if (action.type ==='LOAD_ORDERS_ERROR'){
+        return {
+            ...state, 
+            loading: false,
+            error: action.error
+        }
     }
+
     return state;
 }
 

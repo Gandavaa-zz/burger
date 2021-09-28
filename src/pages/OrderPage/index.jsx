@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../../components/General/Spinner';
-import axios from '../../axios-orders';
+
 
 import css from "./style.module.css";
 import Order from '../../components/Order';
@@ -21,11 +21,6 @@ class OrderPage extends React.Component {
         //call actions from dispatcher
         this.props.laodOrders();
 
-        // this.setState({ loading: true });
-        // axios.get('/orders.json').then(response => {
-        //     this.setState({ orders: Object.entries(response.data).reverse() });
-        // }).catch(err => console.log(err))
-        //     .finally(() => { this.setState({ loading: false }) });
     }
 
     render() {
