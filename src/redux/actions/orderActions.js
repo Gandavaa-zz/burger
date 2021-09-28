@@ -75,8 +75,9 @@ export const saveOrderSuccess = () => {
     }
 }
 
-export const saveOrderError = () => {
+export const saveOrderError = (error) => {
     return {
-        type: "SAVE_ORDER_ERROR"
+        type: "SAVE_ORDER_ERROR", 
+        error 
     }
 }

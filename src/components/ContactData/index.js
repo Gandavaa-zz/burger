@@ -1,13 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from '../../axios-orders';
 import Button from '../General/Button';
 import Spinner from '../General/Spinner';
 import { withRouter } from 'react-router-dom';
-
 import * as actions from "../../redux/actions/orderActions"
-
-
 
 import css from './style.module.css';
 
@@ -16,10 +12,14 @@ class ContactData extends React.Component{
         hayag: {
             name: null,
             city: null,
-            street: null,
-            loading:false
+            street: null            
         }
     };
+
+    componentDidUpdate(){
+        if ( this.props.newOrderStatus.finished && !this.props.newOrderStatus.error)
+            this.props.history.replace('/orders')
+    }
 
     saveOrder =() =>{         
         const newOrder = {
@@ -31,9 +31,7 @@ class ContactData extends React.Component{
                 street: this.state.street
             }
         }
-        
         this.props.saveOrderAction(newOrder)        
-        
     }
 
     changeName =(e) =>{
@@ -50,8 +48,13 @@ class ContactData extends React.Component{
     }
 
     render() {
-        return <div className={css.ContactData}>
-            {this.state.loading ? <Spinner /> : (
+        return <div className={css.ContactData}>            
+            Дүн : { this.props.price}₮
+            <div>
+                {this.props.newOrderStatus.error && `Захиалгыг хадгалах явцад алдаа гарлаа: `}
+            </div>
+
+            {this.props.newOrderStatus.saving ? <Spinner /> : (
                 <div>
                     <input 
                      onChange = {this.changeName} 
@@ -73,7 +76,8 @@ class ContactData extends React.Component{
 const mapStateToProps = state => {
     return { 
         price: state.burgerReducer.totalPrice,
-        ingredients: state.burgerReducer.ingredients
+        ingredients: state.burgerReducer.ingredients,
+        newOrderStatus: state.orderReducer.newOrder
     }
 }
 
