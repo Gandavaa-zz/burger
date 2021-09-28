@@ -9,6 +9,8 @@ const Menu = () => (
         <ul className={css.Menu}>
             <MenuItem exact link="/">Шинэ захиалга</MenuItem>
             <MenuItem link='/orders'>Захиалгууд</MenuItem>
+            <MenuItem link='/login'>Нэвтрэх</MenuItem>
+            <MenuItem link='/signup'>Бүртгүүлэх</MenuItem>
         </ul>
     </div>
 )

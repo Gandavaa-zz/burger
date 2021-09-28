@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import css from './style.module.css';
+import { Route, Switch } from 'react-router-dom';
 
+import css from './style.module.css';
 import Toolbar from '../../components/Toolbar';
 import BurgerPage from "../BurgerPage";
 import SideBar from '../../components/SideBar';
 import OrderPage from '../OrderPage';
-import { Route, Switch } from 'react-router-dom';
-
 import ShippingPage  from '../ShippingPage';
+import LoginPage  from '../LoginPage';
+import SignupPage  from '../SignupPage';
+
 // class bolgoe
 
 class App extends Component {
@@ -37,6 +39,8 @@ class App extends Component {
       <main className={css.Content}>
         <p>Сонгосон орц : {this.state.fovorite} </p>
         <Switch>
+          <Route path="/signup" component={SignupPage}/>
+          <Route path="/login" component={LoginPage}/>
           <Route path="/orders" component={OrderPage}/>
           <Route path="/ship" component={ShippingPage}/>
           <Route path="/"  component = {BurgerPage}/>
