@@ -12,6 +12,7 @@ import { Provider } from "react-redux"
 import thunk from 'redux-thunk';
 import burgerReducer from './redux/reducer/burgerReducer';
 import orderReducer from "./redux/reducer/orderReducer";
+import signupReducer from './redux/reducer/signupReducer';
 
 const logMiddleware = store => {
   return next => {
@@ -31,7 +32,8 @@ const middlewares = [logMiddleware, thunk];
 
 const reducers = combineReducers({
   burgerReducer, 
-  orderReducer
+  orderReducer,
+  signupReducer
 })
 
 const store = createStore(

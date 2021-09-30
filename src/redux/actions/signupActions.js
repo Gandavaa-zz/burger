@@ -16,7 +16,7 @@ export const singupUser = (email, password) => {
                 dispatch(singupUserSuccess(result.data))
             })
             .catch(err => {
-                dispatch(singupUserError())
+                dispatch(singupUserError(err))
             });        
     };
 };
@@ -27,10 +27,10 @@ export const singupUserStart = () => {
     };
 };
 
-export const singupUserSuccess = (firebaseResultData) => {
+export const singupUserSuccess = (data) => {
     return {
         type: 'SIGNUP_USER_SUCCESS',
-        firebaseResultData
+        data
     };
 };
 
