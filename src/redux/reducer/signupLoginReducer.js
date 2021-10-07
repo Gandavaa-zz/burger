@@ -1,6 +1,7 @@
 
 const initialState = {
     saving: false, 
+    loginIn: false,    
     firebaseError: null,
     token:null,
     userID: null
@@ -25,7 +26,30 @@ const reducer  = (state = initialState, action) => {
             return {
                 ...state,
                 saving: false, 
-                data:action.data.idToken,
+                token:action.data.idToken,
+                userId:action.data.localId
+            };
+
+        case 'LOGIN_USER_START' : 
+            return {
+                ...state,
+                loginIn: true
+            };
+
+        case 'LOGIN_USER_ERROR' : 
+            return {
+                ...state,
+                loginIn: false, 
+                firebaseError: action.error.response.data.error.message, 
+                firebaseErrorCode: action.error.response.data.error.code, 
+                
+            };
+        
+        case 'LOGIN_USER_SUCCESS' : 
+            return {
+                ...state,
+                loginIn: false, 
+                token:action.data.idToken,
                 userId:action.data.localId
             };
 
