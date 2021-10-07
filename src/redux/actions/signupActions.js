@@ -40,3 +40,9 @@ export const singupUserError = error => {
         error
     };
 };
+
+export const logout = () => {
+    return {
+        type: 'LOGOUT'
+    };
+};
