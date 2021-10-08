@@ -13,7 +13,13 @@ export const singupUser = (email, password) => {
 
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAXMC2SDEroloy8ZIKivl4H8XD71cLQbsI', data)
             .then(result => {
-                dispatch(singupUserSuccess(result.data))
+                const token = result.data.idToken;
+                const userId = result.data.localId;
+                // save to localStorage these values
+                localStorage.setItem('token', token);
+                localStorage.setItem('userId', userId);
+
+                dispatch(singupUserSuccess(token, userId))
             })
             .catch(err => {
                 dispatch(singupUserError(err))
@@ -27,10 +33,11 @@ export const singupUserStart = () => {
     };
 };
 
-export const singupUserSuccess = (data) => {
+export const singupUserSuccess = (token, userId) => {
     return {
         type: 'SIGNUP_USER_SUCCESS',
-        data
+        token, 
+        userId
     };
 };
 
