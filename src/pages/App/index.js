@@ -14,6 +14,8 @@ import LoginPage  from '../LoginPage';
 import SignupPage  from '../SignupPage';
 import Logout from '../../components/Logout';
 import * as actions from '../../redux/actions/loginActions';
+import * as signupActions from '../../redux/actions/signupActions';
+
 
 // class bolgoe
 
@@ -35,10 +37,22 @@ class App extends Component {
   componentDidMount = () => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    const expireDate = new Date(localStorage.getItem('expireDate'));
+    const refreshToken = localStorage.getItem('refreshToken');
 
     if (token){
-      // automatically logged in
-        this.props.autoLogin(token, userId);
+      // check if date is Expired or not
+      if (expireDate > new Date()){
+          // automatically logged in
+          this.props.autoLogin(token, userId);
+          // when Token finished, calculate the rest of the time
+          // Then logout automaticlly
+          this.props.autoLogoutAfterMillsec(expireDate.getTime() - new Date().getTime());
+      }else 
+          // Token has been timed out then logout
+          // call logout
+          this.props.logout();  
+      
     }
   }
 
@@ -51,7 +65,7 @@ class App extends Component {
       />
 
       <main className={css.Content}>
-                
+
         { this.props.userId ? 
                 ( 
                     <Switch>
@@ -83,7 +97,9 @@ const mapStateToProps  = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId))
+        autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId)), 
+        logout: () => dispatch(signupActions.logout()), 
+        autoLogoutAfterMillsec: () => dispatch(signupActions.autoLogoutAfterMillsec())
     }
 }
 
