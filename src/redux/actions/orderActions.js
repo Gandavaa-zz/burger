@@ -1,14 +1,18 @@
 import axios from '../../axios-orders';
 // if (function returns thunk knows it and use it with dispatch)
 export const loadOrders = userId => {
-    return function (dispatch){
+    return function (dispatch, getState){
         // Dispatch that Order to start loading 
         // After recieve request Spinner starts 
         dispatch(loadOrdersStart());
-
+        
+        // getState-g duudaj avaad token-g avna
+        const token = getState().signupReducer.token;
+        
+        
         // Catch data from firebase      
         axios
-            .get(`/orders.json?orderBy="userId"&equalTo="${userId}"`)
+            .get(`/orders.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`)
             .then(response => {
                 // if its successed we call dispatch fn
                 const loadedOrders = Object.entries(response.data).reverse();
@@ -44,12 +48,14 @@ export const loadOrdersError = (error) => {
 export const saveOrder = (newOrder) => {
     // if called here connect redux thunk
 
-    return function (dispatch) {
+    return function (dispatch, getState) {
         //calld dipatch run Spinner 
         dispatch(saveOrderStart());
+
+        const token = getState().signupReducer.token;
         
         // Save to Firebase
-        axios.post('/orders.json', newOrder)        
+        axios.post(`/orders.json?auth=${token}`, newOrder)        
         .then(response=>{
             dispatch(saveOrderSuccess())
         })

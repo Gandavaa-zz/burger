@@ -1,0 +1,137 @@
+[33mcommit 7f3f9996792c06606cd59c70b202bb67b2ac7d98[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Fri Oct 8 10:23:46 2021 +0800
+
+    add firebase auth and getState using token
+
+[33mcommit f50cad4cabbc1d8253d708192ff2b0cafeb107ac[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Fri Oct 8 09:39:10 2021 +0800
+
+    #88 User can filter own orders and add some restriction in routes
+
+[33mcommit 5f498c1cc9c6fba849467dcec161ffaa54c39fdb[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Thu Oct 7 21:12:12 2021 +0800
+
+    #87 after login fix menus and fix logout actions and write to reducer
+
+[33mcommit 69280a9024588862aee14a8b53117972e3f7c2a1[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Thu Oct 7 17:44:45 2021 +0800
+
+    #86 login component is done
+
+[33mcommit e43398dd12db191e77b5de7efa70ead4079249fa[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Thu Sep 30 21:48:30 2021 +0800
+
+    #85 When registered in SignupPage connect Firebase and add Redirect function
+
+[33mcommit 6ed28ce57aec2285d983fe38ca3c34948c16b75a[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Sep 28 16:21:25 2021 +0800
+
+    #84 Connect to Redux to Firebase
+
+[33mcommit 06feec70e557b56b89e8c4564a216a2bd7501386[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Sep 28 14:23:00 2021 +0800
+
+    #82 Login Signup component created
+
+[33mcommit 8dacbdb2f3eda8c458b01d686337b7e811166acf[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Sep 28 13:40:26 2021 +0800
+
+    #81 Order add reducer added
+
+[33mcommit f2bcc99f3d4f2add1b674c56a78a3d67e0698550[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Sep 28 12:21:50 2021 +0800
+
+    #80 Add Order actions to thunk and connect Contact data component
+
+[33mcommit 0450b7bc4687c44220f0e0c481794d340308a63a[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Sep 28 11:55:43 2021 +0800
+
+    #79 redux-thunk install and use it
+
+[33mcommit 1e83f15276aa3b3bc16be7e194095ce45a9f1bc9[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Mon Sep 27 21:10:22 2021 +0800
+
+    #78 Redux Thunk what is it, how use it
+
+[33mcommit 2329fde04b87623404efe19a5715c46ad8779085[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Sat Sep 25 20:03:28 2021 +0800
+
+    #75 eposide is done
+
+[33mcommit da976fe95258ab222831fa6ba0efd5bbccd728f6[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Sat Sep 25 13:30:31 2021 +0800
+
+    #74 finished
+
+[33mcommit b3f50445c790811a4709d0417da95bcad9b957c7[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Fri Sep 24 12:24:39 2021 +0800
+
+    #63 ContactData added
+
+[33mcommit a4bf52408fe3c63cd83724cf6077adafcb286b54[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Fri Sep 3 15:13:24 2021 +0800
+
+    #54-60 at 60-d button not working
+
+[33mcommit 37169519b851c1f56e12df1458c5cdf0abe73f88[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Mon Aug 30 18:28:49 2021 +0800
+
+    #54 added spinner done
+
+[33mcommit 50812d69ad738ee4ce2b7003fa8d90ae3dcc087b[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Mon Aug 30 18:04:37 2021 +0800
+
+    #51-53 done
+
+[33mcommit a76cc5a80b7dcf58ee2c2a78c7bbe74507b0cd92[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Thu Aug 5 11:05:06 2021 +0800
+
+    finished #50
+
+[33mcommit 9bc7f9f1973af68b96de089090448f9c08ba487f[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Wed Jul 21 20:24:35 2021 +0800
+
+    fixed content and add logo
+
+[33mcommit c9c134d7a32a12217bc8979791cc9661c76a97b7[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 15:03:15 2021 +0800
+
+    add modal window
+
+[33mcommit ff2fd37c09c0519340b12ce4df6a1cf223e08496[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 12:21:27 2021 +0800
+
+    build controllers
+
+[33mcommit fb59353d9d4b5034affc89d1fb8dc3173f94c0ad[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Tue Jul 20 12:20:48 2021 +0800
+
+    #40 order add and koding additional fixing
+
+[33mcommit 8de397b09537cb169f96fabc2e37263d7ceb2cec[m
+Author: Gandavaa <ganaa7@gmail.com>
+Date:   Wed Jun 30 14:49:07 2021 +0800
+
+    Initialize project using Create React App
