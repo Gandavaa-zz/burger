@@ -49,8 +49,8 @@ const reducer  = (state = initialState, action) => {
             return {
                 ...state,
                 loginIn: false, 
-                token:action.data.idToken,
-                userId:action.data.localId
+                token:action.token,
+                userId:action.userId
             };
 
         case 'LOGOUT' : 

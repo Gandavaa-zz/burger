@@ -13,6 +13,7 @@ import ShippingPage  from '../ShippingPage';
 import LoginPage  from '../LoginPage';
 import SignupPage  from '../SignupPage';
 import Logout from '../../components/Logout';
+import * as actions from '../../redux/actions/loginActions';
 
 // class bolgoe
 
@@ -31,6 +32,15 @@ class App extends Component {
     });
   }
 
+  componentDidMount = () => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+
+    if (token){
+      // automatically logged in
+        this.props.autoLogin(token, userId);
+    }
+  }
 
   render (){
     return (<div>
@@ -41,7 +51,7 @@ class App extends Component {
       />
 
       <main className={css.Content}>
-        UserId: { this.props.userId}
+                
         { this.props.userId ? 
                 ( 
                     <Switch>
@@ -71,4 +81,10 @@ const mapStateToProps  = state => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+    return {
+        autoLogin: (token, userId) => dispatch(actions.loginUserSuccess(token, userId))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,6 +3,7 @@ import axios from 'axios';
 export const loginUser = (email, password) => {
     // thunk connection return function
     return function(dispatch){
+
         dispatch(loginUserStart())
 
         const data = { 
@@ -15,7 +16,13 @@ export const loginUser = (email, password) => {
         
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAXMC2SDEroloy8ZIKivl4H8XD71cLQbsI', data)
             .then(result => {
-                dispatch(loginUserSuccess(result.data))
+                const token = result.data.idToken;
+                const userId = result.data.localId;
+                // save to localStorage these values
+                localStorage.setItem('token', token);
+                localStorage.setItem('userId', userId);
+                
+                dispatch(loginUserSuccess(token, userId))
             })
             .catch(err => {
                 dispatch(loginUserError(err))
@@ -29,10 +36,11 @@ export const loginUserStart = () => {
     };
 };
 
-export const loginUserSuccess = (data) => {
+export const loginUserSuccess = (token, userId) => {
     return {
         type: 'LOGIN_USER_SUCCESS',
-        data
+        token,
+        userId
     };
 };
 
