@@ -17,9 +17,8 @@ class OrderPage extends React.Component {
 
     // Render hiihgdsenii daraa uguudul tatah
     componentDidMount() {
-
         //call actions from dispatcher
-        this.props.laodOrders();
+        this.props.laodOrders(this.props.userId);
 
     }
 
@@ -39,13 +38,14 @@ class OrderPage extends React.Component {
 const mapStateToProps = state => {
     return {
         orders: state.orderReducer.orders,
-        loading: state.orderReducer.loading
+        loading: state.orderReducer.loading,
+        userId: state.signupReducer.userId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        laodOrders: () => dispatch(actions.loadOrders())
+        laodOrders: (userId) => dispatch(actions.loadOrders(userId))
     }
 }
 

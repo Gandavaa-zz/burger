@@ -1,6 +1,6 @@
 import axios from '../../axios-orders';
 // if (function returns thunk knows it and use it with dispatch)
-export const loadOrders = () => {
+export const loadOrders = userId => {
     return function (dispatch){
         // Dispatch that Order to start loading 
         // After recieve request Spinner starts 
@@ -8,7 +8,7 @@ export const loadOrders = () => {
 
         // Catch data from firebase      
         axios
-            .get('/orders.json')
+            .get(`/orders.json?orderBy="userId"&equalTo="${userId}"`)
             .then(response => {
                 // if its successed we call dispatch fn
                 const loadedOrders = Object.entries(response.data).reverse();

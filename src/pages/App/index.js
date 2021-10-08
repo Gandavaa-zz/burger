@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
@@ -40,16 +42,21 @@ class App extends Component {
 
       <main className={css.Content}>
         UserId: { this.props.userId}
-
-        <Switch>
-          <Route path="/signup" component={SignupPage}/>
-          <Route path="/login" component={LoginPage}/>
-          <Route path="/logout" component={Logout}/>
-          <Route path="/orders" component={OrderPage}/>
-          <Route path="/ship" component={ShippingPage}/>
-          <Route path="/"  component = {BurgerPage}/>
-
-        </Switch>
+        { this.props.userId ? 
+                ( 
+                    <Switch>
+                      <Route path="/logout" component={Logout}/>
+                      <Route path="/orders" component={OrderPage}/>
+                      <Route path="/ship" component={ShippingPage}/>
+                      <Route path="/"  component = {BurgerPage}/>
+                    </Switch>
+                ): (                 
+                    <Switch>
+                      <Route path="/signup" component={SignupPage}/>
+                      <Route path="/login" component={LoginPage}/>
+                      <Redirect to="/login" />
+                  </Switch>                
+            )}          
       </main>      
       <div>
         Testing...        
