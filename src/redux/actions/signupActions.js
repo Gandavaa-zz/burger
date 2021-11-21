@@ -1,4 +1,4 @@
-import axios from 'axios';
+  import axios from 'axios';
 
 export const singupUser = (email, password) => {
     // thunk connection return function

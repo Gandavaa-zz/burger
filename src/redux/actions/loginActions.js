@@ -20,16 +20,19 @@ export const loginUser = (email, password) => {
                 const token = result.data.idToken;
                 const userId = result.data.localId;
                 const expiresIn = result.data.expiresIn;
-                const expiresDate = new Date(new Date().getTime + expiresIn + 1000);
+                const expiresDate = new Date(new Date().getTime() + expiresIn + 1000);
                 const refreshToken = result.data.refreshToken;
                 
                 // save to localStorage these values
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
+                localStorage.setItem('expiresDate', expiresDate);
+                localStorage.setItem('refreshToken', refreshToken);
                 
                 dispatch(loginUserSuccess(token, userId))
                 // when this session expired
-                dispatch(actions.autoLogoutAfterMillsec(expiresIn))                
+                dispatch(actions.autoLogoutAfterMillsec(5000))                
+                // dispatch(actions.autoLogoutAfterMillsec(expiresIn))                
             })
             .catch(err => {
                 dispatch(loginUserError(err))
