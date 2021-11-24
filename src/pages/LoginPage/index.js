@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState }from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/General/Button';
 import css from './style.module.css';
@@ -6,40 +6,47 @@ import * as actions from '../../redux/actions/loginActions';
 import Spinner from '../../components/General/Spinner';
 import { Redirect } from "react-router-dom";
 
-class Login extends Component {
-    state = {
+const Login = (props) => {
+   
+    const [form, setForm] = useState({
         email: "",
         password: ""
-    };
+    })
 
-    login = () => {
-        this.props.login(this.state.email, this.state.password);
+    const login = () => {
+        props.login(form.email, form.password)
     }
 
-    changeEmail = (e) => {        
-        this.setState({ email:e.target.value});
+    //syntitec event Its not real event cuz virtual dom
+    const changeEmail = (e) => {        
+        const newEmail = e.target.value;
+        setForm( (formBefore) =>  ({ 
+            email:newEmail, 
+            password: formBefore.password
+        }) );
     }
     
-    changePassword = (e) => {        
-        this.setState({ password:e.target.value});
-    }
-
-    render () {
-        return (
-        <div className ={css.Login}>
-
-            { this.props.userId &&  <Redirect to="/orders" /> }
-
-            <input onChange={this.changeEmail} type="text" placeholder ="Имэйл хаяг"/>
-            <input onChange={this.changePassword}  type="password" placeholder ="Нууц үг"/>
-            
-            { this.props.loginIn && <Spinner/> }
-            { this.props.firebaseError && 
-                <div style={{color:'red'}}> { this.props.firebaseError } код нь { this.props.firebaseErrorCode } </div> }
-            <Button text="НЭВТРЭХ" btnType="Success" daragdsan = {this.login} />
-        </div>
+    const changePassword = (e) => {        
+        const changedPassword = e.target.value;
+        setForm( (formBefore) => ({ 
+            email:formBefore.email, 
+            password: changedPassword})
         );
     }
+ 
+    return (
+        <div className ={css.Login}>
+            { props.userId &&  <Redirect to="/orders" /> }
+            <input onChange={changeEmail} type="text" placeholder ="Имэйл хаяг"/>
+            <input onChange={changePassword}  type="password" placeholder ="Нууц үг"/>
+            
+            { props.loginIn && <Spinner/> }
+            { props.firebaseError && 
+                <div style={{color:'red'}}> { props.firebaseError } код нь { props.firebaseErrorCode } </div> }
+            <Button text="НЭВТРЭХ" btnType="Success" daragdsan = {login} />
+        </div>
+        );
+    
 }
 
 const mapStateToProps = state => {
