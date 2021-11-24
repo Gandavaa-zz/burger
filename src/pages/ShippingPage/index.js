@@ -7,30 +7,27 @@ import Button from '../../components/General/Button';
 
 import css from './style.module.css';
 
-class ShippingPage extends React.Component{
+const ShippingPage =(props) =>{
     
-    cancelOrder = () => {
-        this.props.history.goBack();
+    const cancelOrder = () => {
+        props.history.goBack();
     };
 
-    showContactData = () =>{
-        this.props.history.replace("/ship/contact");
+    const showContactData = () =>{
+        props.history.replace("/ship/contact");
     }
-
-    render() {
-        return (
+    return (
         <div className={css.ShippingPage}>
             <p style={{ fontSize: '28px'}}><strong>Таны захиалга амттай болно гэж найдаж байна...</strong></p>
-            <p style={{ fontSize: '28px'}}><strong>Дүн: { this.props.price }</strong></p>
+            <p style={{ fontSize: '28px'}}><strong>Дүн: { props.price }</strong></p>
             <Burger />
-            <Button daragdsan={this.cancelOrder} btnType="Danger" text="Захиалгыг цуцлах"/>
-            <Button daragdsan={this.showContactData} btnType="Success" text="Хүргэлтийн мэдээлэл оруулах"/>
+            <Button daragdsan={cancelOrder} btnType="Danger" text="Захиалгыг цуцлах"/>
+            <Button daragdsan={showContactData} btnType="Success" text="Хүргэлтийн мэдээлэл оруулах"/>
             <Route path="/ship/contact">
                 <ContactData />
             </Route>
         </div>
-        )
-    };        
+        )           
 }
 
 const mapStateToProps = state => {

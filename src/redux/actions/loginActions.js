@@ -31,7 +31,7 @@ export const loginUser = (email, password) => {
                 
                 dispatch(loginUserSuccess(token, userId))
                 // when this session expired
-                dispatch(actions.autoLogoutAfterMillsec(5000))                
+                dispatch(actions.autoLogoutAfterMillsec(50000000))                
                 // dispatch(actions.autoLogoutAfterMillsec(expiresIn))                
             })
             .catch(err => {
