@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import Button from '../General/Button';
 import Spinner from '../General/Spinner';
@@ -7,71 +7,62 @@ import * as actions from "../../redux/actions/orderActions"
 
 import css from './style.module.css';
 
-class ContactData extends React.Component{
-    state ={
-        hayag: {
-            name: null,
-            city: null,
-            street: null            
-        }
-    };
+const ContactData = (props) => {
+    const [name, setName] = useState(null);
+    const [city, setCity] = useState(null);
+    const [street, setStreet] = useState(null);  
+    
+    
+    useEffect(() => {
+        if ( props.newOrderStatus.finished && !props.newOrderStatus.error)
+            props.history.replace('/orders')
+    });
 
-    componentDidUpdate(){
-        if ( this.props.newOrderStatus.finished && !this.props.newOrderStatus.error)
-            this.props.history.replace('/orders')
-    }
-
-    saveOrder =() =>{         
+    const saveOrder =() =>{         
         const newOrder = {
-            userId: this.props.userId,
-            orts: this.props.ingredients,
-            dun: this.props.price, 
+            userId: props.userId,
+            orts: props.ingredients,
+            dun: props.price, 
             hayag: {
-                name: this.state.name,
-                city: this.state.city,
-                street: this.state.street
+                name,
+                city,
+                street
             }
         }
-        this.props.saveOrderAction(newOrder)        
+        props.saveOrderAction(newOrder)        
     }
 
-    changeName =(e) =>{
-        this.setState({name: e.target.value
-        })
+    const changeName =(e) =>{
+            setName(e.target.value)
     }
-    changeStreet =(e) =>{
-        this.setState({street: e.target.value
-        })
+    
+    const changeStreet =(e) =>{
+        setStreet(e.target.value)
     }
-    changeCity =(e) =>{
-        this.setState({city: e.target.value
-        })
+    
+    const changeCity =(e) =>{
+        setCity(e.target.value)
     }
+    
+    return <div className={css.ContactData}>            
+        Дүн : { props.price} ₮
+        <div>
+            {props.newOrderStatus.error && `Захиалгыг хадгалах явцад алдаа гарлаа: `}
+        </div>
 
-    render() {
-        return <div className={css.ContactData}>            
-            Дүн : { this.props.price}₮
+        {props.newOrderStatus.saving ? <Spinner /> : (
             <div>
-                {this.props.newOrderStatus.error && `Захиалгыг хадгалах явцад алдаа гарлаа: `}
+                <input onChange = {changeName} type="text" name="name" placeholder = "Таны нэр" />
+
+                <input onChange = {changeStreet} type="text" name="street" placeholder = "Таны гэрийн хаяг" />
+
+                <input onChange = {changeCity}  type="text" name="city" placeholder = "Таны хот" />
+
+                <Button text="Илгээх" btnType="Success" daragdsan={saveOrder}/>
             </div>
-
-            {this.props.newOrderStatus.saving ? <Spinner /> : (
-                <div>
-                    <input 
-                     onChange = {this.changeName} 
-                    type="text" name="name" placeholder = "Таны нэр" />
-
-                    <input onChange = {this.changeStreet} 
-                    type="text" name="street" placeholder = "Таны гэрийн хаяг" />
-
-                    <input onChange = {this.changeCity}  type="text" name="city" placeholder = "Таны хот" />
-
-                    <Button text="Илгээх" btnType="Success" daragdsan={this.saveOrder}/>
-                    </div>
-            )}
-           
-        </div>;
-    }
+        )}           
+    </div>;
+    
 }
 
 const mapStateToProps = state => {

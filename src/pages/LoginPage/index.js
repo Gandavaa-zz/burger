@@ -17,9 +17,10 @@ const Login = (props) => {
         props.login(form.email, form.password)
     }
 
-    //syntitec event Its not real event cuz virtual dom
+    //syntitec event Its not real event because virtual dom-s event
     const changeEmail = (e) => {        
         const newEmail = e.target.value;
+        // custom formBefore-г insert хийхийн тулд өмнөх password-г хадгалж авна        
         setForm( (formBefore) =>  ({ 
             email:newEmail, 
             password: formBefore.password
