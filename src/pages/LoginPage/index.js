@@ -1,4 +1,4 @@
-import React, {Component, useState }from 'react';
+import React, {Component, useState, useEffect }from 'react';
 import { connect } from 'react-redux';
 import Button from '../../components/General/Button';
 import css from './style.module.css';
@@ -12,6 +12,15 @@ const Login = (props) => {
         email: "",
         password: ""
     })
+    
+    
+    useEffect(() => {
+        console.log('login effect');
+
+        return () => {
+            console.log('clear function ');
+        }
+    }, [form.password])
 
     const login = () => {
         props.login(form.email, form.password)

@@ -32,8 +32,8 @@ const reducer = (state = initialState, action)  => {
             purchasing: true
         }
     }else if (action.type === 'REMOVE_INGREDIENT'){
-        console.log(action.ortsNer);
-        const newPrice =state.totalPrice - INGREDIENT_PRICES[action.ortsNer]; 
+        console.log(action.ortsNer)
+        const newPrice =state.totalPrice - INGREDIENT_PRICES[action.ortsNer]
         return {
             ...state,
             ingredients: {
@@ -43,9 +43,13 @@ const reducer = (state = initialState, action)  => {
             totalPrice: newPrice,
             purchasing: newPrice > 1000
         }
+    }else if (action.type === 'CLEAR_ORDER'){
+        // console.log(action.ortsNer);
+        return initialState
+        
     }
 
-    return state;
+    return state
 }
 
 export default reducer;

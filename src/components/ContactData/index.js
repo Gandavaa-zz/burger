@@ -14,8 +14,15 @@ const ContactData = (props) => {
     
     
     useEffect(() => {
+        console.log('contact data effect :>> ');
         if ( props.newOrderStatus.finished && !props.newOrderStatus.error)
             props.history.replace('/orders')
+
+        return () => {
+            // Clear funciton: Order clear and prepare next order
+            console.log('order clearing :>> ');
+
+        }
     });
 
     const saveOrder =() =>{         
@@ -76,7 +83,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        saveOrderAction: (newOrder) => dispatch(actions.saveOrder(newOrder))
+        saveOrderAction: (newOrder) => dispatch(actions.saveOrder(newOrder)),
+        clearOrder: () => dispatch(actions.clearOrder())
     }
 }
 

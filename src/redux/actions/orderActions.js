@@ -37,6 +37,13 @@ export const loadOrdersSuccess = (loadedOrders) => {
     }
 }
 
+export const clearOrder = (error) => {
+    return { 
+        type: "CLEAR_ORDER", 
+        error 
+    }
+}
+
 export const loadOrdersError = (error) => {
     return { 
         type: "LOAD_ORDERS_ERROR", 

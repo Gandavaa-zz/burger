@@ -20,7 +20,7 @@ class OrderPage extends React.Component {
     }
 
     render() {
-        console.log("========", JSON.stringify(this.state.orders));
+        // console.log("========", JSON.stringify(this.state.orders));
 
         return <div>
             {this.props.loading ?
