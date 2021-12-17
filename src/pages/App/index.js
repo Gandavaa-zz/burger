@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -19,54 +19,45 @@ import * as signupActions from '../../redux/actions/signupActions';
 
 // class bolgoe
 
-class App extends Component {
+const App = props => {
 
-  state = {
-    showSideBar: false, 
-    favorite: 'N/A'
-  };
+	const [showSideBar, setShowSideBar] = useState(false)
 
-  toggleSideBar = () => {
-    this.setState(prevState => {
-      return { 
-        showSideBar: !prevState.showSideBar
-      }
-    });
-  }
+	const toggleSideBar = () => {
+		setShowSideBar(prevState => !prevState)
+	}
 
-  componentDidMount = () => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    const expireDate = new Date(localStorage.getItem('expireDate'));
-    const refreshToken = localStorage.getItem('refreshToken');
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		const userId = localStorage.getItem('userId');
+		const expireDate = new Date(localStorage.getItem('expireDate'));
+		const refreshToken = localStorage.getItem('refreshToken');
 
-    if (token){
-      // check if date is Expired or not
-      if (expireDate > new Date()){
-          // automatically logged in
-          this.props.autoLogin(token, userId);
-          // when Token finished, calculate the rest of the time
-          // Then logout automaticlly
-          this.props.autoLogoutAfterMillsec(expireDate.getTime() - new Date().getTime());
-      }else 
-          // Token has been timed out then logout
-          // call logout
-          this.props.logout();  
-      
-    }
-  }
+		if (token){
+		// check if date is Expired or not
+		if (expireDate > new Date()){
+			// automatically logged in
+			props.autoLogin(token, userId);
+			// when Token finished, calculate the rest of the time
+			// Then logout automaticlly
+			props.autoLogoutAfterMillsec(expireDate.getTime() - new Date().getTime());
+		}else 
+			// Token has been timed out then logout
+			// call logout
+			props.logout();  
+		
+		}		
+	}, []);
+	
 
-  render (){
-    return (<div>
-      <Toolbar toggleSideBar = {this.toggleSideBar}/>
-      <SideBar 
-        showSidebar ={this.state.showSideBar} 
-        toggleSideBar = {this.toggleSideBar}
-      />
+  	return (
+	  <div>
+		<Toolbar toggleSideBar = {toggleSideBar}/>
+		<SideBar showSidebar ={showSideBar} toggleSideBar = {toggleSideBar} />
 
-      <main className={css.Content}>
+      	<main className={css.Content}>
 
-        { this.props.userId ? 
+        { props.userId ? 
                 ( 
                     <Switch>
                       <Route path="/logout" component={Logout}/>
@@ -86,7 +77,7 @@ class App extends Component {
         Testing...        
       </div>
     </div>)
-  }  
+  
 }
 
 const mapStateToProps  = state => {

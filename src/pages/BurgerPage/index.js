@@ -1,6 +1,5 @@
 import React, { Component, useState } from "react";
 
-// Burger builder-g class turliin component hiie
 import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
