@@ -22,8 +22,10 @@ const ContactData = (props) => {
             // Clear funciton: Order clear and prepare next order
             console.log('order clearing :>> ');
 
+            props.clearOrder();
+
         }
-    });
+    }, [props.newOrderStatus.finished]);
 
     const saveOrder =() =>{         
         const newOrder = {
