@@ -1,6 +1,7 @@
 import React from 'react';
-
 import css from './style.module.css';
+import { connect } from 'react-redux';
+import * as actions from '../../redux/actions/burgerActions';
 
 const BuildControl = props => (
 
@@ -9,12 +10,18 @@ const BuildControl = props => (
     <button
         disabled={props.disabledIngredients[props.type]}
         className={css.Less} 
-        onClick={()=>props.ortsHasah(props.type)} 
+        onClick={()=>props.subRecipeBurger(props.type)} 
         >
             Хасах</button>
 
-    <button onClick={() => props.ortsNemeh(props.type) } className={css.More}>Нэмэх</button>
+    <button onClick={() => props.addRecipeBurger(props.type) } className={css.More}>Нэмэх</button>
 </div>
 )
 
-export default BuildControl;
+const mapDispatchToProps = dispatch => {
+    return {
+        addRecipeBurger:  ortsNer => dispatch(actions.addIngredient(ortsNer)),
+        subRecipeBurger:  ortsNer => dispatch(actions.removeIngredient(ortsNer))
+    }
+}
+export default connect(null, mapDispatchToProps)(BuildControl);

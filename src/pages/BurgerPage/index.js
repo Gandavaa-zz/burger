@@ -46,9 +46,7 @@ const BurgerPage = (props) => {
             <Burger/>                
 
             <BuildControls         
-                showConfirmModal = {showConfirmModal}                                        
-                // ortsNemeh={this.props.addRecipeBurger}
-                // ortsHasah={this.props.subRecipeBurger}
+                showConfirmModal = {showConfirmModal}                                                        
             />
         </div>
     )

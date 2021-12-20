@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import * as actions from "../../redux/actions/signupActions";
 import css from './style.module.css';
@@ -15,19 +15,9 @@ const Signup = (props) => {
     const [password2, setPassword2] = useState('');
     const [error,  setError] = useState('');
 
-
-    const changeEmail = (e) => {
-        // event state uurchlunu        
-        setEmail(e.target.value)
-    }
-    
-    const changePassword1 = (e) => {        
-        setPassword1(e.target.value);
-    }
-
-    const changePassword2 = (e) => {                
-        setPassword2(e.target.value);
-    }
+    useEffect(() => {
+        setPassword2(email);
+    }, [email])
 
     const singup = () => {
         if (password1 === password2){
@@ -36,16 +26,15 @@ const Signup = (props) => {
             setError('Нууц үг таарахгүй байна!')
         }
     }
-
     
     return (
         <div className ={css.Signup}>
             { props.userId && <Redirect to="/orders" /> }
-            <h1>Бүртгэлийн форм</h1>
+            <h1>Бүртгэлийн форм</h1>            
             <div>Та өөрийн мэдээллээ оруулна уу!</div>
-            <input onChange={changeEmail} type="text" placeholder ="Имэйл хаяг"/>
-            <input onChange={changePassword1} type="password" placeholder ="Нууц үг ээ оруулна уу"/>
-            <input onChange={changePassword2} type="password" placeholder ="Нууц үг давтан оруулна уу"/>
+            <input onChange={e =>setEmail(e.target.value)} type="text" placeholder ="Имэйл хаяг"/>
+            <input onChange={e =>  setPassword1(e.target.value)} type="password" placeholder ="Нууц үг ээ оруулна уу"/>
+            <input onChange={e =>  setPassword2(e.target.value)} type="password" placeholder ="Нууц үг давтан оруулна уу"/>
 
             {props.firebaseError && <div style={{color:'red'}}>{props.firebaseError}</div>}
 

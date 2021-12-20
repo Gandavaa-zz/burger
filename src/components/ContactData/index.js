@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { connect } from 'react-redux';
 import Button from '../General/Button';
 import Spinner from '../General/Spinner';
@@ -11,6 +11,8 @@ const ContactData = (props) => {
     const [name, setName] = useState(null);
     const [city, setCity] = useState(null);
     const [street, setStreet] = useState(null);  
+
+    const dunRef = useRef();
     
     
     useEffect(() => {
@@ -42,7 +44,10 @@ const ContactData = (props) => {
     }
 
     const changeName =(e) =>{
-            setName(e.target.value)
+        console.log(dunRef.current, 'changed');
+        if (dunRef.current.style.color =='red') dunRef.current.style.color ='green'
+        else dunRef.current.style.color ='red'
+        setName(e.target.value)
     }
     
     const changeStreet =(e) =>{
@@ -54,7 +59,8 @@ const ContactData = (props) => {
     }
     
     return <div className={css.ContactData}>            
-        Дүн : { props.price} ₮
+        <div ref={dunRef}>
+            <strong style={{fontSize: "16px"}}>Дүн : { props.price} ₮</strong></div>
         <div>
             {props.newOrderStatus.error && `Захиалгыг хадгалах явцад алдаа гарлаа: `}
         </div>

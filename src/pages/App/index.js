@@ -16,9 +16,6 @@ import Logout from '../../components/Logout';
 import * as actions from '../../redux/actions/loginActions';
 import * as signupActions from '../../redux/actions/signupActions';
 
-
-// class bolgoe
-
 const App = props => {
 
 	const [showSideBar, setShowSideBar] = useState(false)
