@@ -15,6 +15,8 @@ import SignupPage  from '../SignupPage';
 import Logout from '../../components/Logout';
 import * as actions from '../../redux/actions/loginActions';
 import * as signupActions from '../../redux/actions/signupActions';
+import BurgerContext from '../../context/BurgerContext';
+
 
 const App = props => {
 
@@ -60,7 +62,11 @@ const App = props => {
                       <Route path="/logout" component={Logout}/>
                       <Route path="/orders" component={OrderPage}/>
                       <Route path="/ship" component={ShippingPage}/>
-                      <Route path="/"  component = {BurgerPage}/>
+                      <Route path="/">
+                        <BurgerContext.Provider value={""+showSideBar}>
+                            <BurgerPage/>
+                        </BurgerContext.Provider>
+                      </Route>
                     </Switch>
                 ): (                 
                     <Switch>
